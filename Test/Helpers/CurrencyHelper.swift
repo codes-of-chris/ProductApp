@@ -24,10 +24,7 @@ class CurrencyHelper {
         // Check we are not doing a like-for-like conversion
         guard prouctSourceCurrency != userSelectedCurrency else { return nil }
         
-        // TODO Fetch latest rate from user defaults
-        guard let latestRates = fetchCurrencyConversionResponseFromUserDefaults() else {
-            return nil
-        }
+        guard let latestRates = fetchCurrencyConversionResponseFromUserDefaults() else { return nil }
         
         switch userSelectedCurrency {
         case .GBP:
@@ -39,9 +36,10 @@ class CurrencyHelper {
         }
     }
     
-    func formattedForCurrency(curencyRate: Double, userSelectedCurrency: Currencies, baseValue: Double) -> String? {
+    func formattedForCurrency(currencyRate: Double, userSelectedCurrency: Currencies, baseValue: Double) -> String? {
 
-        let convertedValue = curencyRate * baseValue
+        guard currencyRate > 0.0 else { return nil }
+        let convertedValue = currencyRate * baseValue
         return convertedValue.formatted(.currency(code: userSelectedCurrency.rawValue))
     }
     
@@ -54,9 +52,11 @@ class CurrencyHelper {
 
                 do {
                     
-                    let currencyConversionResponse = try JSONDecoder().decode(CurrencyConversionResponse.self, from: success)
+                    let currencyConversionResponse = try JSONDecoder()
+                        .decode(CurrencyConversionResponse.self, from: success)
+                    
                     completion(.success(currencyConversionResponse))
-                } catch (let error) {
+                } catch let error {
                     completion(.failure(error))
                 }
 
@@ -75,8 +75,10 @@ class CurrencyHelper {
     
     func fetchCurrencyConversionResponseFromUserDefaults() -> CurrencyConversionResponse? {
         
-        guard let currencyConversionResponse = Constants.defaults.object(forKey: Constants.conversionUserDefaultsKey) as? Data,
-                let response = try? JSONDecoder().decode(CurrencyConversionResponse.self, from: currencyConversionResponse) else { return nil }
+        guard let currencyConversionResponse = Constants.defaults
+            .object(forKey: Constants.conversionUserDefaultsKey) as? Data,
+              let response = try? JSONDecoder().decode(CurrencyConversionResponse.self,
+                                                       from: currencyConversionResponse) else { return nil }
         
         return response
     }

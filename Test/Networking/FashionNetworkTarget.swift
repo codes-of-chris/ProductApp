@@ -36,11 +36,11 @@ enum FashionNetworkTarget: APITarget {
         
         switch self {
         case .fetchWomensClothes:
-            return .url(["format" : "json"])
+            return .url(["format": "json"])
         }
     }
     
-    var headers: [String : String]? {
+    var headers: [String: String]? {
         
         switch self {
         case .fetchWomensClothes:
@@ -60,6 +60,9 @@ enum FashionNetworkTarget: APITarget {
     private func openLocal(filename: String) -> Data {
 
         let path = Bundle.main.path(forResource: filename, ofType: "json")!
+        
+        // Should only be ran with mock data when developing
+        // swiftlint:disable force_try
         return try! Data(contentsOf: URL(fileURLWithPath: path))
     }
 }

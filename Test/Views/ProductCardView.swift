@@ -49,9 +49,7 @@ struct ProductCardView: View {
     }
 }
 
-
 struct ProductView_Previews: PreviewProvider {
-    
     
     static var previews: some View {
         

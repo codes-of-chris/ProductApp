@@ -18,6 +18,7 @@
 		1838263528FB55B40036824F /* CurrencyHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1838263428FB55B40036824F /* CurrencyHelper.swift */; };
 		1838265128FB5E860036824F /* TestAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1838265028FB5E860036824F /* TestAppTests.swift */; };
 		1838265828FC090B0036824F /* ProductDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1838265728FC090B0036824F /* ProductDetailView.swift */; };
+		18E9654328FC5EFE00C3C210 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 18E9654228FC5EFE00C3C210 /* .swiftlint.yml */; };
 		18F4F6DF28F743C10069E028 /* TestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F4F6DE28F743C10069E028 /* TestApp.swift */; };
 		18F4F6E128F743C10069E028 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F4F6E028F743C10069E028 /* HomeView.swift */; };
 		18F4F6E328F743C20069E028 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18F4F6E228F743C20069E028 /* Assets.xcassets */; };
@@ -57,6 +58,7 @@
 		1838264E28FB5E860036824F /* TestAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1838265028FB5E860036824F /* TestAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAppTests.swift; sourceTree = "<group>"; };
 		1838265728FC090B0036824F /* ProductDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailView.swift; sourceTree = "<group>"; };
+		18E9654228FC5EFE00C3C210 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		18F4F6DB28F743C10069E028 /* Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18F4F6DE28F743C10069E028 /* TestApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestApp.swift; sourceTree = "<group>"; };
 		18F4F6E028F743C10069E028 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 		18F4F6D228F743C10069E028 = {
 			isa = PBXGroup;
 			children = (
+				18E9654228FC5EFE00C3C210 /* .swiftlint.yml */,
 				18F4F6DD28F743C10069E028 /* Test */,
 				1838264F28FB5E860036824F /* TestAppTests */,
 				18F4F6DC28F743C10069E028 /* Products */,
@@ -247,6 +250,7 @@
 			buildConfigurationList = 18F4F6E928F743C20069E028 /* Build configuration list for PBXNativeTarget "Test" */;
 			buildPhases = (
 				18F4F6D728F743C10069E028 /* Sources */,
+				18E9654128FC5E5000C3C210 /* SwiftLint Run Script */,
 				18F4F6D828F743C10069E028 /* Frameworks */,
 				18F4F6D928F743C10069E028 /* Resources */,
 			);
@@ -309,6 +313,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18E9654328FC5EFE00C3C210 /* .swiftlint.yml in Resources */,
 				1838263128FAF60D0036824F /* currency_conversion.json in Resources */,
 				18F4F6E628F743C20069E028 /* Preview Assets.xcassets in Resources */,
 				18FA2CB628F7713400A54641 /* womens_products.json in Resources */,
@@ -317,6 +322,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		18E9654128FC5E5000C3C210 /* SwiftLint Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "SwiftLint Run Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1838264A28FB5E860036824F /* Sources */ = {
