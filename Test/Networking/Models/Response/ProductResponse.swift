@@ -15,7 +15,7 @@ struct ProductResponse: Codable {
 
 struct Product: Identifiable, Codable {
     
-    var id: String { code } //Identifiable
+    var id: String { code } // Identifiable
     let code: String
     let name: String
     let designer: Designer
@@ -40,7 +40,8 @@ struct Price: Codable {
         guard let rate = helper
             .fetchCurrencyRateFor(baseCurrencyIso: currencyIso,
                                   userSelectedCurrency: userSelectedCurrency) else { return nil }
-        let formattedValue = helper.formattedForCurrency(curencyRate: rate, userSelectedCurrency: userSelectedCurrency, baseValue: value)
+        let formattedValue = helper.formattedForCurrency(currencyRate: rate,
+                                                         userSelectedCurrency: userSelectedCurrency, baseValue: value)
         return formattedValue
     }
 }

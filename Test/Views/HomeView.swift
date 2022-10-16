@@ -8,10 +8,10 @@
 import SwiftUI
 import Combine
 
-class SheetMananger: ObservableObject{
+class SheetMananger: ObservableObject {
     
     @Published var showDetailView = false
-    @Published var selectedProduct: Product? = nil
+    @Published var selectedProduct: Product?
 }
 
 struct HomeView: View {
@@ -61,14 +61,14 @@ struct HomeView: View {
                     CurrencySelectionView()
                 }
             }
-        }.onAppear() { viewModel.fetchHomePageContent() }
+        }.onAppear { viewModel.fetchHomePageContent() }
     }
 }
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         
-        HomeView(viewModel: ProductViewModel(fashionAPIClient: MockAPIClient(), currencyConversionAPIClient: MockAPIClient()))
+        HomeView(viewModel: ProductViewModel(fashionAPIClient: MockAPIClient(),
+                                             currencyConversionAPIClient: MockAPIClient()))
     }
 }
-

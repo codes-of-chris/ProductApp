@@ -12,7 +12,7 @@ struct TestApp: App {
     
     var body: some Scene {
         WindowGroup {
-            HomeView(viewModel: ProductViewModel(fashionAPIClient: FashionApiClient(), currencyConversionAPIClient: MockAPIClient()))
+            HomeView(viewModel: ProductViewModel(fashionAPIClient: MockAPIClient(), currencyConversionAPIClient: MockAPIClient()))
         }
     }
 }

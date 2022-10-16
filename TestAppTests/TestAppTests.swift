@@ -30,25 +30,40 @@ final class TestAppTests: XCTestCase {
         XCTAssertNil(productSourceSameAsUserSeleced, "Product Source cannot be same as user selected currency. (No conversion needs to be made)")
     }
     
-    func testCurrencyHelper_formattedForCurrency_formatShouldBeCorrect() throws {
+    func testCurrencyHelper_formattedForCurrency_formatAndValueShouldBeCorrect() throws {
         
         let productPrice = Price(currencyIso: "GBP", value: 100.00, formattedValue: "£100.00")
         
-        guard let usdRate = currencyHelper.fetchCurrencyRateFor(baseCurrencyIso: productPrice.currencyIso,
-                                                             userSelectedCurrency: .USD) else {
-            XCTFail("Expected to receive valid conversion rate")
-            return
-        }
-        
-        guard let eurRate = currencyHelper.fetchCurrencyRateFor(baseCurrencyIso: productPrice.currencyIso,
-                                                                userSelectedCurrency: .EUR) else {
-            XCTFail("Expected to receive valid conversion rate")
-            return
-        }
+        let usdRate = 1.5
+        let eurRate = 1.5
+        let invalidNegativeEurRate = -0.1
+        let emptyConversionRate = 0.0
 
-        let usdConvertedValue = currencyHelper.formattedForCurrency(curencyRate: usdRate, userSelectedCurrency: .USD, baseValue: productPrice.value)
-        let eurConvertedValue = currencyHelper.formattedForCurrency(curencyRate: eurRate, userSelectedCurrency: .EUR, baseValue: productPrice.value)
+        let usdConvertedValue = currencyHelper.formattedForCurrency(currencyRate: usdRate, userSelectedCurrency: .USD, baseValue: productPrice.value)
+        let eurConvertedValue = currencyHelper.formattedForCurrency(currencyRate: eurRate, userSelectedCurrency: .EUR, baseValue: productPrice.value)
+        let invalidNegativeEurConvertedValue = currencyHelper
+            .formattedForCurrency(currencyRate: invalidNegativeEurRate, userSelectedCurrency: .EUR, baseValue: productPrice.value)
+        let emptyNegativeEurConvertedValue = currencyHelper
+            .formattedForCurrency(currencyRate: emptyConversionRate, userSelectedCurrency: .EUR, baseValue: productPrice.value)
+        
         XCTAssertEqual(usdConvertedValue, "$150.00")
         XCTAssertEqual(eurConvertedValue, "€150.00")
+        XCTAssertNil(invalidNegativeEurConvertedValue, "Conversion rate must be a positive number")
+        XCTAssertNil(emptyNegativeEurConvertedValue, "Conversion rate must be greater than 0")
+    }
+    
+    func testCurrencyHelper_fetchCurrency_mockDataShouldMatchCurrentModel() throws {
+        
+        currencyHelper.currencyAPIClient.request(target: CurrencyConversionNetworkTarget.fetchLatestExhangeRate) { result in
+            
+            switch result {
+            case .success(let successData):
+
+                XCTAssertNil(try? JSONDecoder().decode(CurrencyConversionResponse.self, from: successData),
+                             "Failed to parse CurrencyConversionResponse from mock api")
+            case .failure(let error):
+                XCTFail("Failure \(error) when fetching mock data")
+            }
+        }
     }
 }

@@ -9,8 +9,8 @@ import Foundation
 
 enum Currencies: String, Identifiable, CaseIterable, Codable {
     
-    var id: UUID { UUID() } //Identifiable
-    case GBP = "GBP", EUR = "EUR", USD = "USD"
+    var id: UUID { UUID() } // Identifiable
+    case GBP, EUR, USD
     
     var stringDescription: String {
         

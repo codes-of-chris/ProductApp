@@ -11,11 +11,10 @@ import SwiftUI
 class ProductViewModel: ObservableObject {
     
     @AppStorage(Constants.selectedCurrencyKey) var selectedCurrency: Currencies = .GBP
-    
     @Published var items: [Product]?
     private let fashionAPIClient: APIClient
     private let currencyConversionAPICLient: APIClient
-    
+
     init(fashionAPIClient: APIClient, currencyConversionAPIClient: APIClient) {
         
         self.fashionAPIClient = fashionAPIClient
